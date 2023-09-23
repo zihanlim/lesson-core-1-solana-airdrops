@@ -26,8 +26,12 @@ export const airdropSolIfNeeded = async (
   connection: Web3.Connection
 ) => {
   // Get signer balance
+  const balance= await connection.getBalance(signer.publicKey);
+  console.log('Current balance is', balance / Web3.LAMPORTS_PER_SOL, 'SOL');
   // Check if the signer has less than 1 SOL
-  {
+  { if (balance / Web3.LAMPORTS_PER_SOL<1){
+    console.log('Airdropping 1 SOL.')
+  }
     // Request airdrop using connection.requestAirdrop
     // Confirm the transaction using connection.confirmTransaction
     // Check the new balance
